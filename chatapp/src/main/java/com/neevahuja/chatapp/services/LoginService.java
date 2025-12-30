@@ -46,6 +46,9 @@ public class LoginService {
 
     public String register(String name, String username, String password) {
         Users user = new Users(name , username , passwordEncoder.encode(password));
+        if(userRepo.getByUsername(username) != null) {
+            return "USERNAME ALREADY EXISTS";
+        }
         userRepo.save(user);
         return "SUCESS";
     }

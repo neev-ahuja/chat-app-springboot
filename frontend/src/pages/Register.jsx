@@ -5,30 +5,45 @@ import toast from 'react-hot-toast';
 
 const Register = () => {
 
-    const [name , setName] = useState("");
-    const [username , setUserName] = useState("");
+    const [name, setName] = useState("");
+    const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const navigate = useNavigate();
 
+    const [isLoading, setIsLoading] = useState(false);
 
-    const {register} = useAuth();
 
-    const handleRegister =async () => {
-        if(username.trim() !== "" && password != "" && password === confirmPassword){
-            await register(username , password , name);
-            if(localStorage.getItem("token") != null) {
-                toast.success("Registered SucessFully");
-                navigate('/');
-                return;
+    const { register } = useAuth();
+
+    const handleRegister = async () => {
+        let response;
+        try {
+            if (username.trim() !== "" && password != "" && password === confirmPassword) {
+                response = await register(username, password, name);
+                if (localStorage.getItem("token") != null) {
+                    toast.success("Registered SucessFully");
+                    navigate('/');
+                    return;
+                }
+
+                if (response.data === "USERNAME ALREADY EXISTS") {
+                    toast.error("USERNAME ALREADY EXISTS")
+                } else {
+                    toast.error("Error in Register");
+
+                }
             }
-        toast.error("Error in Register")
-
+            toast.error(password !== confirmPassword ? "Passwords do not match" : "Error in Register")
+        } catch (err) {
+            console.log(err);
+            toast.error("Register Failed");
+        } finally {
+            setIsLoading(false);
         }
-        toast.error(password !== confirmPassword ? "Passwords do not match" : "Error in Register")
     }
-    
+
     return (
         <div className="min-h-screen bg-background-light dark:bg-background-dark flex items-center justify-center p-4 font-display">
             <div className="bg-white dark:bg-surface-dark w-full max-w-md p-8 rounded-2xl shadow-lg border border-slate-100 dark:border-slate-700/50">
@@ -53,7 +68,7 @@ const Register = () => {
                         />
                     </div>
 
-                     <div>
+                    <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5" htmlFor="name">
                             username
                         </label>
@@ -66,7 +81,7 @@ const Register = () => {
                             required
                         />
                     </div>
-                    
+
 
                     <div>
                         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1.5" htmlFor="password">
@@ -98,8 +113,13 @@ const Register = () => {
                         />
                     </div>
 
-                    <button onClick={() => handleRegister()} className="block w-full py-3.5 px-4 bg-primary hover:bg-blue-500 text-white text-center font-semibold rounded-xl shadow-md shadow-primary/20 transition-all active:scale-95 mt-2">
-                        Sign Up
+                    <button onClick={isLoading ? () => {
+                        toast.error("Wait Before Trying Again")
+                    } : () => {
+                        setIsLoading(true);
+                        handleRegister();
+                    }} className="block w-full py-3.5 px-4 bg-primary hover:bg-blue-500 text-white text-center font-semibold rounded-xl shadow-md shadow-primary/20 transition-all active:scale-95 mt-2">
+                        {isLoading ? "Loading" : "Sign Up"}
                     </button>
                 </form>
 

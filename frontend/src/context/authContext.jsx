@@ -50,7 +50,8 @@ const AuthProvider = ({ children }) => {
       password,
       name
     });
-    if(response.data === "SUCESS") await login(username , password);  
+    if(response.data === "SUCESS") await login(username , password);
+    return response;  
   }
 
   const logOut = () => {
