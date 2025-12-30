@@ -3,6 +3,8 @@
 
 A real-time chat application built with **Spring Boot** (Backend) and **React** (Frontend), featuring WebSocket-based messaging, JWT authentication, and MongoDB storage.
 
+**Live Demo:** [https://chat-app-springboot-six.vercel.app](https://chat-app-springboot-six.vercel.app)
+
 ## 🚀 Tech Stack
 
 ### Backend (`/chatapp`)
