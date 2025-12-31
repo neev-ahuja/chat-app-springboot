@@ -4,6 +4,7 @@ import { useActionData, useNavigate, useParams, useSearchParams } from 'react-ro
 import api from '../api/api';
 import { useAuth } from '../context/authContext';
 import { useSocket } from '../context/socketContext';
+import { useVideoCall } from '../context/VideoCallContext';
 import toast from 'react-hot-toast';
 const ChatWindow = () => {
 
@@ -20,6 +21,7 @@ const ChatWindow = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const { stompClient, isConnected } = useSocket();
+    const { startCall } = useVideoCall();
 
     const [content, setContent] = useState("");
 
@@ -107,12 +109,12 @@ const ChatWindow = () => {
                 </div>
                 <div className="flex items-center gap-1">
                     <button
-                        onClick={() => toast.error("Feature coming soon!")}
+                        onClick={() => startCall(user2.id, 'voice')}
                         className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-slate-100 dark:hover:bg-surface-dark text-slate-500 dark:text-slate-300 transition-colors" title="Start Call">
                         <span className="material-symbols-outlined text-[22px]">call</span>
                     </button>
                     <button
-                        onClick={() => toast.error("Feature coming soon!")}
+                        onClick={() => startCall(user2.id, 'video')}
                         className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-slate-100 dark:hover:bg-surface-dark text-slate-500 dark:text-slate-300 transition-colors" title="Video Call">
                         <span className="material-symbols-outlined text-[24px]">videocam</span>
                     </button>
