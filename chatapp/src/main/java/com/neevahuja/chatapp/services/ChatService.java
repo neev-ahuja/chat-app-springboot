@@ -55,7 +55,7 @@ public class ChatService {
         if(user2.getChats() == null) user2.setChats(new HashMap<>());
 
         user1.getChats().put(chat.getId() , new ChatUserData(chat.getId() , newMessage , user2.getName() , user2.getId()));
-        user2.getChats().put(chat.getId() ,new ChatUserData(chat.getId() , newMessage , user2.getName() , user2.getId()));
+        user2.getChats().put(chat.getId() ,new ChatUserData(chat.getId() , newMessage , user1.getName() , user1.getId()));
 
         userRepo.save(user1);
         userRepo.save(user2);
