@@ -94,7 +94,6 @@ const ChatWindow = () => {
 
     return (
         <main className="flex-1 flex flex-col h-full bg-slate-50 dark:bg-background-dark relative">
-            {/* Chat Header */}
             <header className="h-18 flex items-center justify-between px-6 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark z-10 shrink-0">
                 <div className="flex items-center gap-4">
                     <div className="relative">
@@ -104,17 +103,16 @@ const ChatWindow = () => {
                     </div>
                     <div>
                         <h2 className="text-slate-900 dark:text-white text-base font-bold leading-tight">{user2 && user2.name}</h2>
-                        {/* <p className="text-primary text-xs font-medium animate-pulse">Typing...</p> */}
                     </div>
                 </div>
                 <div className="flex items-center gap-1">
                     <button
-                        onClick={() => startCall(user2.id, 'voice')}
+                        onClick={() => startCall(user2.id, user2.name, 'voice')}
                         className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-slate-100 dark:hover:bg-surface-dark text-slate-500 dark:text-slate-300 transition-colors" title="Start Call">
                         <span className="material-symbols-outlined text-[22px]">call</span>
                     </button>
                     <button
-                        onClick={() => startCall(user2.id, 'video')}
+                        onClick={() => startCall(user2.id, user2.name, 'video')}
                         className="flex items-center justify-center h-10 w-10 rounded-full hover:bg-slate-100 dark:hover:bg-surface-dark text-slate-500 dark:text-slate-300 transition-colors" title="Video Call">
                         <span className="material-symbols-outlined text-[24px]">videocam</span>
                     </button>
@@ -150,7 +148,6 @@ const ChatWindow = () => {
             </div>
 
 
-            {/* Input Area */}
             <div className="px-6 pb-6 pt-2 bg-slate-50 dark:bg-background-dark shrink-0">
                 <div className="flex items-end gap-3 bg-white dark:bg-surface-dark p-2 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700/50 ring-1 ring-transparent focus-within:ring-primary/50 transition-all">
                     <button

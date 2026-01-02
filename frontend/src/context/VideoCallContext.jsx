@@ -95,12 +95,14 @@ export const VideoCallProvider = ({ children }) => {
         }
     };
 
-    const startCall = (receiverId, type = "voice") => {
+    const startCall = (receiverId, receiverName, type = "voice") => {
         const roomId = `${user.id}-${receiverId}-${Date.now()}`;
         const signal = {
             type: "CALL_REQUEST",
             callerId: user.id,
+            callerName: user.name, // Send my name
             receiverId: receiverId,
+            receiverName: receiverName, // Store for local display
             roomId: roomId,
             callType: type
         };
@@ -157,13 +159,6 @@ export const VideoCallProvider = ({ children }) => {
     const sendSignal = (signal) => {
         if (stompClient && isConnected) {
             let destination = "/topic/call";
-            // We bypass the backend controller for all signals to ensure fields like 'callType' 
-            // are not stripped by the strict Java POJO properties on the backend.
-            // if (signal.type === "CALL_REQUEST") destination = "/app/call/request";
-            // else if (signal.type === "CALL_ACCEPT") destination = "/app/call/accept";
-            // else if (signal.type === "CALL_REJECT") destination = "/app/call/reject";
-            // else if (signal.type === "CALL_END") destination = "/app/call/end";
-
             console.log("SENDING SIGNAL:", signal.type, signal);
             stompClient.publish({
                 destination: destination,
