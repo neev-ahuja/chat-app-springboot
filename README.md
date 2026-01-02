@@ -21,13 +21,16 @@ A real-time chat application built with **Spring Boot** (Backend) and **React** 
 - **Routing:** React Router DOM
 - **HTTP Client:** Axios
 - **WebSocket Client:** SockJS + StompJS
+- **Video/Voice Calls:** WebRTC (Native API)
 - **Toast Notifications:** React Hot Toast
 
 ## ✨ Features
 - **Real-time Messaging:** Instant message delivery using WebSockets.
+- **Voice & Video Calls:** Crystal clear audio and video calls using WebRTC.
 - **User Authentication:** Secure login and registration with JWT.
 - **Responsive Design:** Modern UI built with Tailwind CSS.
 - **Toast Notifications:** Real-time feedback for user actions.
+
 
 ## 🛠️ Prerequisites
 Before running the application, ensure you have the following installed:
